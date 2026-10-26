@@ -1,5 +1,5 @@
 /* Cache the app shell and form clips so the home-screen PWA works offline. */
-const CACHE = "mike-gym-v2";
+const CACHE = "mike-gym-v3";
 const PRECACHE = [
   "./",
   "./index.html",

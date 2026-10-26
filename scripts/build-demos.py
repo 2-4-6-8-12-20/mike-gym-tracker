@@ -6,7 +6,7 @@ Wikimedia Commons hosts. This script rasterizes them, trims shared
 whitespace, and writes a two- or three-frame GIF per exercise id.
 
 Changes from the originals: white background, scaled to a 340px square,
-whitespace cropped, poses held ~0.7s and looped. No pose was redrawn.
+whitespace cropped, poses held ~2s and looped. No pose was redrawn.
 """
 
 import subprocess
@@ -22,7 +22,7 @@ CACHE = Path("/tmp/ek")
 UA = "mike-gym-tracker/1.0 (CC BY-SA form demos; attribution in README)"
 SIZE = 340
 WHITE = (255, 255, 255)
-HOLD_MS = 700
+HOLD_MS = 2000
 
 # exercise id -> Wikimedia Commons filenames, in pose order.
 # Notes in index.html explain when a drawing is the closest standard movement.

@@ -8,7 +8,7 @@ under **Creative Commons Attribution-ShareAlike 3.0**
 (<https://creativecommons.org/licenses/by-sa/3.0/>).
 
 What changed: each drawing pair was placed on a white background, scaled
-into a 340×340 square, and saved as a short looping GIF (about 0.7 seconds
+into a 340×340 square, and saved as a short looping GIF (about 2 seconds
 per pose). The poses themselves were not redrawn.
 
 These GIFs are shared under the same license, CC BY-SA 3.0.

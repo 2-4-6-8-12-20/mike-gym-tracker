@@ -42,7 +42,7 @@ Or open `index.html` directly in a browser (file:// works for logging; Add to Ho
 
 Each exercise has a looping GIF in `media/`. Thumbnails sit beside the exercise name; tap one to open the same clip larger. Clips are served from relative paths and cached by `sw.js` with the rest of the app, so they stay available offline after the first load.
 
-Drawings are by **Everkinetic** (Greg Priday), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Weight_training_diagrams), under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). They were scaled onto a white square and looped (about 0.7s per pose). Poses were not redrawn. The GIFs stay under that same license — see `media/NOTICE.md`. `scripts/build-demos.py` lists the source file for each exercise id.
+Drawings are by **Everkinetic** (Greg Priday), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/Category:Weight_training_diagrams), under [CC BY-SA 3.0](https://creativecommons.org/licenses/by-sa/3.0/). They were scaled onto a white square and looped (about 2 seconds per pose, so the form is easy to follow). Poses were not redrawn. The GIFs stay under that same license — see `media/NOTICE.md`. `scripts/build-demos.py` lists the source file for each exercise id.
 
 Where the program uses a machine variant and the library only has the standard version, the clip is the closest matching movement and the exercise name is unchanged. The larger view says so in one line (for example lat pulldown for the assisted pull-up, Romanian deadlift for the dumbbell RDL, chest-supported T-bar row for the Hammer Strength row).
 
