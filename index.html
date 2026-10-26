@@ -110,10 +110,41 @@
     padding: 12px; margin-bottom: 12px;
   }
   .ex.complete { border-color: #166534; background: #12201a; }
-  .ex-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 8px; margin-bottom: 8px; }
+  .ex-head { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; margin-bottom: 8px; }
+  .ex-thumb {
+    flex: 0 0 64px; width: 64px; height: 64px; min-height: 64px; padding: 0;
+    border-radius: 10px; overflow: hidden; background: #fff; border: 1px solid var(--border);
+  }
+  .ex-thumb img {
+    width: 100%; height: 100%; object-fit: contain; display: block; background: #fff;
+    pointer-events: none;
+  }
+  .ex-copy { flex: 1; min-width: 0; }
   .ex-name { font-weight: 700; font-size: 1rem; margin: 0; }
   .ex-target { color: var(--muted); font-size: 0.8rem; margin: 2px 0 0; }
-  .last { font-size: 0.75rem; color: var(--accent2); margin: 0; white-space: nowrap; }
+  .last { flex: 0 0 auto; font-size: 0.75rem; color: var(--accent2); margin: 0; white-space: nowrap; padding-top: 2px; }
+  body.modal-open { overflow: hidden; }
+  .demo-modal {
+    position: fixed; inset: 0; z-index: 80;
+    display: flex; align-items: center; justify-content: center;
+    padding: calc(12px + var(--safe-t)) 12px calc(12px + var(--safe-b));
+  }
+  .demo-backdrop { position: absolute; inset: 0; background: rgba(0,0,0,0.72); }
+  .demo-sheet {
+    position: relative; z-index: 1; width: min(420px, 100%);
+    max-height: 100%; overflow: auto; -webkit-overflow-scrolling: touch;
+    background: var(--bg2); border: 1px solid var(--border);
+    border-radius: 18px; padding: 12px;
+  }
+  .demo-sheet img {
+    width: 100%; max-height: 62vh; object-fit: contain;
+    background: #fff; border-radius: 12px; display: block;
+  }
+  #demo-title { font-size: 1.05rem; margin: 10px 0 4px; }
+  .demo-note { margin: 0 0 6px; color: var(--muted); font-size: 0.85rem; }
+  .demo-credit { margin: 0 0 10px; color: var(--muted); font-size: 0.75rem; }
+  .demo-credit a { color: var(--accent2); }
+  #demo-close { width: 100%; }
   .set-row {
     display: grid; grid-template-columns: 36px 1fr 1fr 56px;
     gap: 8px; align-items: center; margin-bottom: 8px;
@@ -224,7 +255,7 @@
     </div>
     <div class="progress-bar"><span id="wo-progress"></span></div>
     <div id="wo-exercises"></div>
-    <p class="note">Tap ✓ on a set → optional rest timer. Data saves automatically.</p>
+    <p class="note">Tap a thumbnail for a larger form clip. Tap ✓ on a set → optional rest timer. Data saves automatically.</p>
   </section>
 
   <!-- HISTORY -->
@@ -315,6 +346,17 @@
 </div>
 <div class="toast" id="toast"></div>
 
+<div id="demo-modal" class="demo-modal hidden" role="dialog" aria-modal="true" aria-labelledby="demo-title">
+  <div class="demo-backdrop" id="demo-backdrop"></div>
+  <div class="demo-sheet">
+    <img id="demo-img" alt="" />
+    <h2 id="demo-title"></h2>
+    <p id="demo-note" class="demo-note"></p>
+    <p class="demo-credit">Form drawing by <a href="https://github.com/everkinetic/data" target="_blank" rel="noopener noreferrer">Everkinetic</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></p>
+    <button type="button" class="primary" id="demo-close">Close</button>
+  </div>
+</div>
+
 <script>
 (function () {
   "use strict";
@@ -375,6 +417,36 @@
         { id: "d6", name: "Optional Hip Adduction or Abduction", sets: 2, reps: "12" }
       ]
     }
+  };
+
+  // Looping form clips in ./media. Drawings are Everkinetic (CC BY-SA 3.0);
+  // see README and media/NOTICE.md. `note` is shown only when the drawing
+  // is the closest standard movement rather than the exact machine.
+  const DEMOS = {
+    a1: { src: "./media/a1.gif", note: "" },
+    a2: { src: "./media/a2.gif", note: "" },
+    a3: { src: "./media/a3.gif", note: "Pec deck — same motion as a machine fly" },
+    a4: { src: "./media/a4.gif", note: "Lateral raise — same arm path as the machine" },
+    a5: { src: "./media/a5.gif", note: "Cable pushdown — a single handle follows this path" },
+    a6: { src: "./media/a6.gif", note: "Narrow push-up" },
+    b1: { src: "./media/b1.gif", note: "Chest-supported T-bar row" },
+    b2: { src: "./media/b2.gif", note: "Lat pulldown — same path as an assisted pull-up" },
+    b3: { src: "./media/b3.gif", note: "Bent-over row — Meadows row is this hinge, one arm" },
+    b4: { src: "./media/b4.gif", note: "" },
+    b5: { src: "./media/b5.gif", note: "" },
+    b6: { src: "./media/b6.gif", note: "One-arm cable curl" },
+    c1: { src: "./media/c1.gif", note: "Front raise — turn thumbs up for a neutral grip" },
+    c2: { src: "./media/c2.gif", note: "Lateral raise — a leaning cable uses this arm path" },
+    c3: { src: "./media/c3.gif", note: "Cable rear-delt fly" },
+    c4: { src: "./media/c4.gif", note: "" },
+    c5: { src: "./media/c5.gif", note: "" },
+    c6: { src: "./media/c6.gif", note: "Decline crunch — same motion as a decline sit-up" },
+    d1: { src: "./media/d1.gif", note: "Romanian deadlift — a dumbbell RDL is the same hinge" },
+    d2: { src: "./media/d2.gif", note: "" },
+    d3: { src: "./media/d3.gif", note: "Leg press — feet lower on the sled to bias quads" },
+    d4: { src: "./media/d4.gif", note: "" },
+    d5: { src: "./media/d5.gif", note: "" },
+    d6: { src: "./media/d6.gif", note: "Hip adduction" }
   };
 
   const BAG_ITEMS = [
@@ -584,10 +656,32 @@
       const lw = store.lastWeights[ex.id];
       const head = document.createElement("div");
       head.className = "ex-head";
-      head.innerHTML =
-        "<div><p class=\"ex-name\">" + (exIdx + 1) + ". " + escapeHtml(ex.name) + "</p>" +
-        "<p class=\"ex-target\">" + ex.sets + " × " + escapeHtml(ex.reps) + "</p></div>" +
-        (lw != null ? "<p class=\"last\">Last " + lw + "</p>" : "<p class=\"last\">—</p>");
+      const demo = DEMOS[ex.id];
+      if (demo) {
+        const thumb = document.createElement("button");
+        thumb.type = "button";
+        thumb.className = "ex-thumb";
+        thumb.setAttribute("data-demo", ex.id);
+        thumb.setAttribute("aria-label", "Form demo for " + ex.name);
+        const pic = document.createElement("img");
+        pic.src = demo.src;
+        pic.alt = "";
+        pic.width = 64;
+        pic.height = 64;
+        pic.decoding = "async";
+        thumb.appendChild(pic);
+        head.appendChild(thumb);
+      }
+      const copy = document.createElement("div");
+      copy.className = "ex-copy";
+      copy.innerHTML =
+        "<p class=\"ex-name\">" + (exIdx + 1) + ". " + escapeHtml(ex.name) + "</p>" +
+        "<p class=\"ex-target\">" + ex.sets + " × " + escapeHtml(ex.reps) + "</p>";
+      head.appendChild(copy);
+      const last = document.createElement("p");
+      last.className = "last";
+      last.textContent = lw != null ? "Last " + lw : "—";
+      head.appendChild(last);
       block.appendChild(head);
 
       exData.sets.forEach(function (set, si) {
@@ -675,6 +769,45 @@
     if (timerInterval) clearInterval(timerInterval);
     timerInterval = null;
     if (hide !== false) document.getElementById("timer-bar").classList.add("hidden");
+  }
+
+  function exerciseById(id) {
+    const dayIds = ["A", "B", "C", "D"];
+    for (let i = 0; i < dayIds.length; i++) {
+      const list = DAYS[dayIds[i]].exercises;
+      for (let j = 0; j < list.length; j++) {
+        if (list[j].id === id) return list[j];
+      }
+    }
+    return null;
+  }
+
+  function openDemo(id) {
+    const demo = DEMOS[id];
+    const ex = exerciseById(id);
+    if (!demo || !ex) return;
+    const img = document.getElementById("demo-img");
+    img.alt = "Form demo: " + ex.name;
+    img.removeAttribute("src");
+    img.src = demo.src;
+    document.getElementById("demo-title").textContent = ex.name;
+    const note = document.getElementById("demo-note");
+    note.textContent = demo.note || "";
+    note.classList.toggle("hidden", !demo.note);
+    const modal = document.getElementById("demo-modal");
+    modal.classList.remove("hidden");
+    document.body.classList.add("modal-open");
+    document.getElementById("demo-close").focus();
+  }
+
+  function closeDemo() {
+    const modal = document.getElementById("demo-modal");
+    if (modal.classList.contains("hidden")) return;
+    modal.classList.add("hidden");
+    document.body.classList.remove("modal-open");
+    const img = document.getElementById("demo-img");
+    img.removeAttribute("src");
+    img.alt = "";
   }
 
   function escapeHtml(s) {
@@ -881,6 +1014,22 @@
     if (f) importData(f);
     e.target.value = "";
   });
+  document.getElementById("wo-exercises").addEventListener("click", function (e) {
+    let node = e.target;
+    while (node && node !== e.currentTarget) {
+      if (node.classList && node.classList.contains("ex-thumb")) {
+        openDemo(node.getAttribute("data-demo"));
+        return;
+      }
+      node = node.parentNode;
+    }
+  });
+  document.getElementById("demo-close").addEventListener("click", closeDemo);
+  document.getElementById("demo-backdrop").addEventListener("click", closeDemo);
+  document.addEventListener("keydown", function (e) {
+    if (e.key === "Escape") closeDemo();
+  });
+
   document.getElementById("btn-clear").addEventListener("click", function () {
     if (!confirm("Delete ALL workout sessions and last weights on this phone?")) return;
     if (!confirm("Absolutely sure? This cannot be undone (export first).")) return;
@@ -895,6 +1044,12 @@
     if (document.visibilityState === "hidden") persistCurrent();
   });
   window.addEventListener("pagehide", persistCurrent);
+
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("./sw.js").catch(function () {});
+    });
+  }
 
   renderHome();
 })();
