@@ -122,6 +122,7 @@
   .ex-copy { flex: 1; min-width: 0; }
   .ex-name { font-weight: 700; font-size: 1rem; margin: 0; }
   .ex-target { color: var(--muted); font-size: 0.8rem; margin: 2px 0 0; }
+  .ex-cue { color: var(--muted); font-size: 0.78rem; font-weight: 500; margin: 4px 0 0; line-height: 1.35; }
   .last { flex: 0 0 auto; font-size: 0.75rem; color: var(--accent2); margin: 0; white-space: nowrap; padding-top: 2px; }
   body.modal-open { overflow: hidden; }
   .demo-modal {
@@ -141,6 +142,7 @@
     background: #fff; border-radius: 12px; display: block;
   }
   #demo-title { font-size: 1.05rem; margin: 10px 0 4px; }
+  .demo-cue { margin: 0 0 6px; font-size: 0.9rem; line-height: 1.35; }
   .demo-note { margin: 0 0 6px; color: var(--muted); font-size: 0.85rem; }
   .demo-credit { margin: 0 0 10px; color: var(--muted); font-size: 0.75rem; }
   .demo-credit a { color: var(--accent2); }
@@ -255,7 +257,7 @@
     </div>
     <div class="progress-bar"><span id="wo-progress"></span></div>
     <div id="wo-exercises"></div>
-    <p class="note">Tap a thumbnail for a larger form clip. Tap ✓ on a set → optional rest timer. Data saves automatically.</p>
+    <p class="note">Setup cues sit under each exercise. Tap a thumbnail for a larger form clip. Tap ✓ on a set → optional rest timer. Data saves automatically.</p>
   </section>
 
   <!-- HISTORY -->
@@ -351,6 +353,7 @@
   <div class="demo-sheet">
     <img id="demo-img" alt="" />
     <h2 id="demo-title"></h2>
+    <p id="demo-cue" class="demo-cue"></p>
     <p id="demo-note" class="demo-note"></p>
     <p class="demo-credit">Form drawing by <a href="https://github.com/everkinetic/data" target="_blank" rel="noopener noreferrer">Everkinetic</a> · <a href="https://creativecommons.org/licenses/by-sa/3.0/" target="_blank" rel="noopener noreferrer">CC BY-SA 3.0</a></p>
     <button type="button" class="primary" id="demo-close">Close</button>
@@ -370,12 +373,12 @@
       name: "Press",
       short: "Chest / shoulders / tris",
       exercises: [
-        { id: "a1", name: "Incline Machine Chest Press", sets: 3, reps: "8–10" },
-        { id: "a2", name: "Seated Dumbbell Shoulder Press", sets: 3, reps: "8–10" },
-        { id: "a3", name: "Machine Chest Fly", sets: 3, reps: "10–12" },
-        { id: "a4", name: "Seated Machine Lateral Raise", sets: 3, reps: "10–12" },
-        { id: "a5", name: "Single Cable Tricep Pushdown", sets: 3, reps: "10–12" },
-        { id: "a6", name: "Narrow Push Up or Push Up", sets: 2, reps: "AMRAP clean" }
+        { id: "a1", name: "Incline Machine Chest Press", sets: 3, reps: "8–10", cue: "Shoulder blades set. Lower until the chest is loaded — don’t bounce the stack." },
+        { id: "a2", name: "Seated Machine Shoulder Press", sets: 3, reps: "8–10", cue: "Back on the pad. No shrug or bounce. If Last is a dumbbell number, start lighter." },
+        { id: "a3", name: "Machine Chest Fly", sets: 3, reps: "10–12", cue: "Soft elbows. Open to a chest stretch, and don’t slam the pads together." },
+        { id: "a4", name: "Seated Machine Lateral Raise", sets: 3, reps: "10–12", cue: "Elbows lead to shoulder height. Hardest in the middle. Don’t shrug." },
+        { id: "a5", name: "Single-Arm Cable Tricep Pushdown", sets: 3, reps: "10–12", cue: "Elbow pinned to your side. Keep the cable tight at the top — no forearm swing." },
+        { id: "a8", name: "Cable Crossover", sets: 2, reps: "10–12", cue: "Slight lean, soft elbows. Hands meet at the lower chest. Don’t rock the stack." }
       ]
     },
     B: {
@@ -383,12 +386,12 @@
       name: "Pull",
       short: "Back / rear / bis",
       exercises: [
-        { id: "b1", name: "Hammer Strength Chest Supported Row", sets: 3, reps: "8–10" },
-        { id: "b2", name: "Machine-Assisted Pull Up or Lat Pulldown", sets: 3, reps: "8–10" },
-        { id: "b3", name: "Landmine Meadows Row", sets: 3, reps: "8–10" },
-        { id: "b4", name: "Dumbbell Shrug", sets: 3, reps: "10–12" },
-        { id: "b5", name: "Alternating DB Hammer Curls", sets: 3, reps: "10–12" },
-        { id: "b6", name: "Face Away Cable Curl or Single DB Mid-Line Curl", sets: 2, reps: "10–12" }
+        { id: "b1", name: "Hammer Strength Chest Supported Row", sets: 3, reps: "8–10", cue: "Chest stays on the pad. Pull elbows toward your hips, not out wide." },
+        { id: "b2", name: "Underhand Lat Pulldown", sets: 3, reps: "8–10", cue: "Elbows close, pull to the upper chest. Don’t swing. Neutral grip is fine." },
+        { id: "b7", name: "Single-Arm Chest-Supported Row", sets: 3, reps: "8–10", cue: "One arm, chest on the pad, elbow near your side. Don’t twist off the pad." },
+        { id: "b8", name: "Straight-Arm Cable Pulldown", sets: 3, reps: "10–12", cue: "Arms nearly straight. Arc to the thighs, stretch at the top. Don’t row it." },
+        { id: "b9", name: "Single-Arm Dumbbell Preacher Curl", sets: 3, reps: "10–12", cue: "Palm up, arm braced on a 45–60° pad. A steep bench unloads an end. No swing." },
+        { id: "b6", name: "Face-Away Cable Curl", sets: 2, reps: "10–12", cue: "Face away, arm starts behind you, cable tight in the stretch. Elbow still." }
       ]
     },
     C: {
@@ -396,12 +399,12 @@
       name: "Upper Isolation",
       short: "Arms / delts / abs",
       exercises: [
-        { id: "c1", name: "Alternating Neutral Front Raises", sets: 3, reps: "10–12" },
-        { id: "c2", name: "Leaning Cable Lateral Raise or Seated Bent DB Lateral Raise", sets: 3, reps: "10–12" },
-        { id: "c3", name: "Dual Cable Cross Rear Delt Fly", sets: 3, reps: "10–12" },
-        { id: "c4", name: "Alternating DB Curl", sets: 3, reps: "10–12" },
-        { id: "c5", name: "Dumbbell Skull Crusher", sets: 3, reps: "10–12" },
-        { id: "c6", name: "Weighted Ab Crunch Machine or Decline Sit Up", sets: 2, reps: "10–12" }
+        { id: "c1", name: "Cable Front Raise", sets: 3, reps: "10–12", cue: "Low cable, no body English, stop near shoulder height. Dumbbell Last? Start lighter." },
+        { id: "c2", name: "Leaning Cable Lateral Raise", sets: 3, reps: "10–12", cue: "Lean away from the low cable so the stretch is hard. Soft elbow, no swing." },
+        { id: "c3", name: "Dual Cable Cross Rear Delt Fly", sets: 3, reps: "10–12", cue: "Cables cross in front. Open with the rear delts and keep the chest still." },
+        { id: "b9", name: "Single-Arm Dumbbell Preacher Curl", sets: 3, reps: "10–12", cue: "Palm up, arm braced on a 45–60° pad. A steep bench unloads an end. No swing." },
+        { id: "c7", name: "Single-Arm Cable Overhead Tricep Extension", sets: 3, reps: "10–12", cue: "Hand behind the head, low cable, arm by the ear. Don’t flare the elbow or lean." },
+        { id: "c6", name: "Ab Crunch Machine", sets: 2, reps: "10–12", cue: "Ribs to pelvis, don’t pull the neck. Decline sit-up only if the machine is taken." }
       ]
     },
     D: {
@@ -409,44 +412,43 @@
       name: "Light Legs",
       short: "Support, not crush",
       exercises: [
-        { id: "d1", name: "Dumbbell RDL", sets: 3, reps: "8–10" },
-        { id: "d2", name: "Seated Leg Curl", sets: 3, reps: "10–12" },
-        { id: "d3", name: "Plate-Loaded / Quad-Focus Leg Press", sets: 3, reps: "10–12 moderate" },
-        { id: "d4", name: "Alternating Box Step-Ups", sets: 2, reps: "8–10/leg" },
-        { id: "d5", name: "Machine Standing Calf Raise", sets: 3, reps: "10–12" },
-        { id: "d6", name: "Optional Hip Adduction or Abduction", sets: 2, reps: "12" }
+        { id: "d1", name: "Dumbbell RDL", sets: 3, reps: "8–10", cue: "Weights close to the legs. Soft knees, hinge to a hamstring stretch, no bounce." },
+        { id: "d2", name: "Seated Leg Curl", sets: 3, reps: "10–12", cue: "Hips stay down so the hamstrings are stretched. Full bend, smooth return." },
+        { id: "d3", name: "Plate-Loaded / Quad-Focus Leg Press", sets: 3, reps: "10–12 moderate", cue: "Feet lower for quads. Moderate load. Don’t lock out or bounce the sled." },
+        { id: "d4", name: "Alternating Box Step-Ups", sets: 2, reps: "8–10/leg", cue: "A box you can control. Drive the front heel. Don’t push off the back foot." },
+        { id: "d5", name: "Machine Standing Calf Raise", sets: 3, reps: "10–12", cue: "Pause in the bottom stretch. Press up without bouncing." },
+        { id: "d6", name: "Optional Hip Adduction or Abduction", sets: 2, reps: "12", cue: "Full range, let the stack settle, and don’t yank." }
       ]
     }
   };
 
   // Looping form clips in ./media. Drawings are Everkinetic (CC BY-SA 3.0);
   // see README and media/NOTICE.md. `note` is shown only when the drawing
-  // is the closest standard movement rather than the exact machine.
+  // is the closest standard movement rather than the exact setup.
   const DEMOS = {
     a1: { src: "./media/a1.gif", note: "" },
     a2: { src: "./media/a2.gif", note: "" },
     a3: { src: "./media/a3.gif", note: "Pec deck — same motion as a machine fly" },
-    a4: { src: "./media/a4.gif", note: "Lateral raise — same arm path as the machine" },
-    a5: { src: "./media/a5.gif", note: "Cable pushdown — a single handle follows this path" },
-    a6: { src: "./media/a6.gif", note: "Narrow push-up" },
-    b1: { src: "./media/b1.gif", note: "Chest-supported T-bar row" },
-    b2: { src: "./media/b2.gif", note: "Lat pulldown — same path as an assisted pull-up" },
-    b3: { src: "./media/b3.gif", note: "Bent-over row — Meadows row is this hinge, one arm" },
-    b4: { src: "./media/b4.gif", note: "" },
-    b5: { src: "./media/b5.gif", note: "" },
-    b6: { src: "./media/b6.gif", note: "One-arm cable curl" },
-    c1: { src: "./media/c1.gif", note: "Front raise — turn thumbs up for a neutral grip" },
-    c2: { src: "./media/c2.gif", note: "Lateral raise — a leaning cable uses this arm path" },
+    a4: { src: "./media/a4.gif", note: "Dumbbell lateral raise — same arm path as the machine" },
+    a5: { src: "./media/a5.gif", note: "Bar pushdown — a single handle follows this path" },
+    a8: { src: "./media/a8.gif", note: "" },
+    b1: { src: "./media/b1.gif", note: "T-bar row. Keep your chest on the machine pad — don’t hinge and swing." },
+    b2: { src: "./media/b2.gif", note: "" },
+    b6: { src: "./media/b6.gif", note: "Turn around and face away so the arm starts behind you. Drawing faces the cable." },
+    b7: { src: "./media/b7.gif", note: "Seated cable row. Do one arm with your chest on a pad, elbow close." },
+    b8: { src: "./media/b8.gif", note: "" },
+    b9: { src: "./media/b9.gif", note: "" },
+    c1: { src: "./media/c1.gif", note: "" },
+    c2: { src: "./media/c2.gif", note: "Dumbbell lateral raise — same arm path. Lean away from a low cable." },
     c3: { src: "./media/c3.gif", note: "Cable rear-delt fly" },
-    c4: { src: "./media/c4.gif", note: "" },
-    c5: { src: "./media/c5.gif", note: "" },
-    c6: { src: "./media/c6.gif", note: "Decline crunch — same motion as a decline sit-up" },
+    c6: { src: "./media/c6.gif", note: "Decline crunch — same motion if the machine is taken." },
+    c7: { src: "./media/c7.gif", note: "" },
     d1: { src: "./media/d1.gif", note: "Romanian deadlift — a dumbbell RDL is the same hinge" },
     d2: { src: "./media/d2.gif", note: "" },
-    d3: { src: "./media/d3.gif", note: "Leg press — feet lower on the sled to bias quads" },
+    d3: { src: "./media/d3.gif", note: "Leg press — feet lower on the sled than this drawing, to bias quads" },
     d4: { src: "./media/d4.gif", note: "" },
     d5: { src: "./media/d5.gif", note: "" },
-    d6: { src: "./media/d6.gif", note: "Hip adduction" }
+    d6: { src: "./media/d6.gif", note: "Hip adduction. Abduction is the same machine, pressing outward." }
   };
 
   const BAG_ITEMS = [
@@ -506,20 +508,24 @@
     return date + "::" + dayId;
   }
 
+  function blankSets(ex) {
+    const sets = [];
+    for (let i = 0; i < ex.sets; i++) {
+      const lw = store.lastWeights[ex.id];
+      sets.push({
+        weight: lw != null ? String(lw) : "",
+        reps: "",
+        done: false
+      });
+    }
+    return sets;
+  }
+
   function emptySession(dayId, date) {
     const day = DAYS[dayId];
     const exercises = {};
     day.exercises.forEach(function (ex) {
-      const sets = [];
-      for (let i = 0; i < ex.sets; i++) {
-        const lw = store.lastWeights[ex.id];
-        sets.push({
-          weight: lw != null ? String(lw) : "",
-          reps: "",
-          done: false
-        });
-      }
-      exercises[ex.id] = { sets: sets };
+      exercises[ex.id] = { sets: blankSets(ex) };
     });
     return {
       date: date,
@@ -530,11 +536,29 @@
     };
   }
 
+  // Add sets for exercises added after an older session was saved.
+  // Logged sets for removed exercises stay in the object so history still counts.
+  function backfillSession(session, dayId) {
+    const day = DAYS[dayId];
+    if (!day || !session) return false;
+    if (!session.exercises || typeof session.exercises !== "object") session.exercises = {};
+    let changed = false;
+    day.exercises.forEach(function (ex) {
+      const block = session.exercises[ex.id];
+      if (block && Array.isArray(block.sets)) return;
+      session.exercises[ex.id] = { sets: blankSets(ex) };
+      changed = true;
+    });
+    return changed;
+  }
+
   function getOrCreateSession(dayId) {
     const date = todayKey();
     const key = sessionKey(date, dayId);
     if (!store.sessions[key]) {
       store.sessions[key] = emptySession(dayId, date);
+      saveStore(store);
+    } else if (backfillSession(store.sessions[key], dayId)) {
       saveStore(store);
     }
     return store.sessions[key];
@@ -546,7 +570,8 @@
     store.sessions[key] = currentSession;
     // update last weights from done sets
     Object.keys(currentSession.exercises).forEach(function (exId) {
-      const sets = currentSession.exercises[exId].sets;
+      const block = currentSession.exercises[exId];
+      const sets = block && Array.isArray(block.sets) ? block.sets : [];
       for (let i = sets.length - 1; i >= 0; i--) {
         if (sets[i].done && sets[i].weight !== "" && sets[i].weight != null) {
           const n = parseFloat(sets[i].weight);
@@ -601,8 +626,10 @@
       const key = sessionKey(todayKey(), id);
       const sess = store.sessions[key];
       const finished = sess && sess.finishedAt;
-      const started = sess && !finished && Object.keys(sess.exercises).some(function (exId) {
-        return sess.exercises[exId].sets.some(function (s) { return s.done; });
+      const started = sess && !finished && sess.exercises && Object.keys(sess.exercises).some(function (exId) {
+        const block = sess.exercises[exId];
+        const sets = block && Array.isArray(block.sets) ? block.sets : [];
+        return sets.some(function (s) { return s && s.done; });
       });
       const btn = document.createElement("button");
       btn.type = "button";
@@ -631,7 +658,8 @@
   function countProgress() {
     let total = 0, done = 0;
     currentDay.exercises.forEach(function (ex) {
-      const sets = currentSession.exercises[ex.id].sets;
+      const block = currentSession.exercises[ex.id];
+      const sets = block && Array.isArray(block.sets) ? block.sets : [];
       sets.forEach(function (s) {
         total++;
         if (s.done) done++;
@@ -650,7 +678,8 @@
     currentDay.exercises.forEach(function (ex, exIdx) {
       const block = document.createElement("div");
       const exData = currentSession.exercises[ex.id];
-      const allDone = exData.sets.every(function (s) { return s.done; });
+      if (!exData || !Array.isArray(exData.sets)) return;
+      const allDone = exData.sets.length > 0 && exData.sets.every(function (s) { return s.done; });
       block.className = "ex" + (allDone ? " complete" : "");
 
       const lw = store.lastWeights[ex.id];
@@ -676,7 +705,8 @@
       copy.className = "ex-copy";
       copy.innerHTML =
         "<p class=\"ex-name\">" + (exIdx + 1) + ". " + escapeHtml(ex.name) + "</p>" +
-        "<p class=\"ex-target\">" + ex.sets + " × " + escapeHtml(ex.reps) + "</p>";
+        "<p class=\"ex-target\">" + ex.sets + " × " + escapeHtml(ex.reps) + "</p>" +
+        (ex.cue ? "<p class=\"ex-cue\">" + escapeHtml(ex.cue) + "</p>" : "");
       head.appendChild(copy);
       const last = document.createElement("p");
       last.className = "last";
@@ -772,6 +802,11 @@
   }
 
   function exerciseById(id) {
+    if (currentDay) {
+      for (let j = 0; j < currentDay.exercises.length; j++) {
+        if (currentDay.exercises[j].id === id) return currentDay.exercises[j];
+      }
+    }
     const dayIds = ["A", "B", "C", "D"];
     for (let i = 0; i < dayIds.length; i++) {
       const list = DAYS[dayIds[i]].exercises;
@@ -791,6 +826,9 @@
     img.removeAttribute("src");
     img.src = demo.src;
     document.getElementById("demo-title").textContent = ex.name;
+    const cue = document.getElementById("demo-cue");
+    cue.textContent = ex.cue || "";
+    cue.classList.toggle("hidden", !ex.cue);
     const note = document.getElementById("demo-note");
     note.textContent = demo.note || "";
     note.classList.toggle("hidden", !demo.note);
@@ -838,19 +876,29 @@
     });
     if (histMode === "weights") {
       let html = "<h2>Last weight used</h2>";
-      const rows = [];
-      Object.keys(DAYS).forEach(function (dayId) {
+      const grouped = [];
+      const index = {};
+      ["A", "B", "C", "D"].forEach(function (dayId) {
         DAYS[dayId].exercises.forEach(function (ex) {
-          const w = store.lastWeights[ex.id];
-          if (w != null) rows.push({ day: dayId, name: ex.name, w: w });
+          if (!index[ex.id]) {
+            index[ex.id] = { id: ex.id, name: ex.name, days: [] };
+            grouped.push(index[ex.id]);
+          }
+          if (index[ex.id].days.indexOf(dayId) < 0) index[ex.id].days.push(dayId);
         });
+      });
+      const rows = [];
+      grouped.forEach(function (g) {
+        const w = store.lastWeights[g.id];
+        if (w != null) rows.push({ days: g.days, name: g.name, w: w });
       });
       if (!rows.length) {
         body.innerHTML = html + '<p class="empty">No weights logged yet. Finish a few sets first.</p>';
         return;
       }
       html += rows.map(function (r) {
-        return '<div class="hist-item"><div class="when">Day ' + r.day + ' · ' + escapeHtml(r.name) +
+        const dayLabel = r.days.length > 1 ? "Days " + r.days.join(" & ") : "Day " + r.days[0];
+        return '<div class="hist-item"><div class="when">' + dayLabel + ' · ' + escapeHtml(r.name) +
           '</div><div class="detail">' + r.w + ' lbs</div></div>';
       }).join("");
       body.innerHTML = html;
@@ -866,12 +914,16 @@
     }
     html += keys.slice(0, 30).map(function (k) {
       const s = store.sessions[k];
+      if (!s || typeof s !== "object") return "";
       const day = DAYS[s.dayId];
       let done = 0, total = 0;
-      Object.keys(s.exercises).forEach(function (exId) {
-        s.exercises[exId].sets.forEach(function (set) {
+      const exMap = s.exercises || {};
+      Object.keys(exMap).forEach(function (exId) {
+        const block = exMap[exId];
+        const sets = block && Array.isArray(block.sets) ? block.sets : [];
+        sets.forEach(function (set) {
           total++;
-          if (set.done) done++;
+          if (set && set.done) done++;
         });
       });
       const status = s.finishedAt ? "Finished" : "Partial";
