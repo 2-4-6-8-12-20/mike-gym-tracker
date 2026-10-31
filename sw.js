@@ -1,5 +1,5 @@
 /* Cache the app shell and form clips so the home-screen PWA works offline. */
-const CACHE = "mike-gym-v3";
+const CACHE = "mike-gym-v4";
 const PRECACHE = [
   "./",
   "./index.html",
@@ -12,19 +12,18 @@ const PRECACHE = [
   "./media/a3.gif",
   "./media/a4.gif",
   "./media/a5.gif",
-  "./media/a6.gif",
+  "./media/a8.gif",
   "./media/b1.gif",
   "./media/b2.gif",
-  "./media/b3.gif",
-  "./media/b4.gif",
-  "./media/b5.gif",
   "./media/b6.gif",
+  "./media/b7.gif",
+  "./media/b8.gif",
+  "./media/b9.gif",
   "./media/c1.gif",
   "./media/c2.gif",
   "./media/c3.gif",
-  "./media/c4.gif",
-  "./media/c5.gif",
   "./media/c6.gif",
+  "./media/c7.gif",
   "./media/d1.gif",
   "./media/d2.gif",
   "./media/d3.gif",

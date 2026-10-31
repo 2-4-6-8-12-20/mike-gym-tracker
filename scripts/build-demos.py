@@ -10,6 +10,7 @@ whitespace cropped, poses held ~2s and looped. No pose was redrawn.
 """
 
 import subprocess
+import sys
 import urllib.parse
 import urllib.request
 from pathlib import Path
@@ -28,23 +29,28 @@ HOLD_MS = 2000
 # Notes in index.html explain when a drawing is the closest standard movement.
 SOURCES = {
     "a1": ["Incline chest press 1.svg", "Incline chest press 2.svg"],
-    "a2": ["Dumbbell shoulder press 1.svg", "Dumbbell shoulder press 2.svg"],
+    "a2": ["Seated shoulder press machine 1.svg", "Seated shoulder press machine 2.svg"],
     "a3": ["Butterfly machine 1.svg", "Butterfly machine 2.svg"],
     "a4": ["Lateral dumbbell raises 1.svg", "Lateral dumbbell raises 2.svg"],
     "a5": ["Triceps pushdown with cable 1.svg", "Triceps pushdown with cable 2.svg"],
     "a6": ["Close triceps pushup 1.svg", "Close triceps pushup 2.svg"],
+    "a8": ["Cable crossover 1.svg", "Cable crossover 2.svg"],
     "b1": ["T bar rows 1.svg", "T bar rows 2.svg"],
-    "b2": ["Wide grip lat pull down 1.svg", "Wide grip lat pull down 2.svg"],
+    "b2": ["Underhand pull down 1.svg", "Underhand pull down 2.svg"],
     "b3": ["Reverse grips bent over barbell rows 1.svg", "Reverse grips bent over barbell rows 2.svg"],
     "b4": ["Dumbbell-shrugs-1.png", "Dumbbell-shrugs-2.png"],
     "b5": ["Alternating hammer curl with dumbbell 1.svg", "Alternating hammer curl with dumbbell 2.svg"],
     "b6": ["Standing one arm bicep curl with cable 1.svg", "Standing one arm bicep curl with cable 2.svg"],
-    "c1": ["Front dumbbell raise 1.svg", "Front dumbbell raise 2.svg"],
+    "b7": ["Seated cable rows 1.svg", "Seated cable rows 2.svg"],
+    "b8": ["Straight arm push down 1.svg", "Straight arm push down 2.svg"],
+    "b9": ["One arm preacher curl with dumbbell 1.svg", "One arm preacher curl with dumbbell 2.svg"],
+    "c1": ["Front cable raises 1.svg", "Front cable raises 2.svg"],
     "c2": ["Lateral dumbbell raises 1.svg", "Lateral dumbbell raises 2.svg"],
     "c3": ["Seated rear lateral cable raise 1.svg", "Seated rear lateral cable raise 2.svg"],
     "c4": ["Alternating bicep curl with dumbbell 1.svg", "Alternating bicep curl with dumbbell 2.svg"],
     "c5": ["Lying triceps extension with dumbbells 1.svg", "Lying triceps extension with dumbbells 2.svg"],
     "c6": ["Decline crunch 1.svg", "Decline crunch 2.svg"],
+    "c7": ["One arm low pulley triceps extension with cable 1.svg", "One arm low pulley triceps extension with cable 2.svg"],
     "d1": ["Romanian dead lift 1.svg", "Romanian dead lift 2.svg"],
     "d2": ["Seated leg curl 1.svg", "Seated leg curl 2.svg"],
     "d3": ["Leg-press-1-1024x670.png", "Leg-press-2-1024x670.png"],
@@ -188,7 +194,12 @@ def save_gif(frames, dest: Path):
 
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
-    for ex_id, names in SOURCES.items():
+    selected = sys.argv[1:] or list(SOURCES)
+    unknown = [ex_id for ex_id in selected if ex_id not in SOURCES]
+    if unknown:
+        raise SystemExit("unknown exercise id: " + ", ".join(unknown))
+    for ex_id in selected:
+        names = SOURCES[ex_id]
         frames = normalize([load_frame(name) for name in names])
         dest = OUT / f"{ex_id}.gif"
         save_gif(frames, dest)

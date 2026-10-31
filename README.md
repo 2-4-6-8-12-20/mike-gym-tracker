@@ -32,6 +32,7 @@ Or open `index.html` directly in a browser (file:// works for logging; Add to Ho
 
 - Day A Press / B Pull / C Upper Isolation / D Light Legs (30‑min lifts)
 - Set logging: weight, reps, Done — saved automatically
+- A one-line setup cue on each exercise (pad angle, elbow path, where the tension should sit)
 - A small looping form clip beside each exercise (tap it for a larger view)
 - Rest timer (75s) after marking a set done
 - History + last weights
