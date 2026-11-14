@@ -1,7 +1,7 @@
 {
   "name": "Mike Gym Tracker",
   "short_name": "Gym",
-  "description": "30-minute restart workout tracker",
+  "description": "Even Easier Strength tracker — 40 workouts, about 30 minutes",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#0f1419",

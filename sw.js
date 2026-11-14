@@ -1,5 +1,5 @@
 /* Cache the app shell and form clips so the home-screen PWA works offline. */
-const CACHE = "mike-gym-v4";
+const CACHE = "mike-gym-v5";
 const PRECACHE = [
   "./",
   "./index.html",
@@ -29,7 +29,10 @@ const PRECACHE = [
   "./media/d3.gif",
   "./media/d4.gif",
   "./media/d5.gif",
-  "./media/d6.gif"
+  "./media/d6.gif",
+  "./media/ees-goblet.gif",
+  "./media/ees-hinge-dl.gif",
+  "./media/ees-carry.gif"
 ];
 
 self.addEventListener("install", function (event) {

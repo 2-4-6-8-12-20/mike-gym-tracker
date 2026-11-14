@@ -205,6 +205,24 @@
   .seg button.active { background: var(--accent); color: #fff; }
   .note { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
   a.link { color: var(--accent2); }
+  .card h2.ees-count { font-size: 1.65rem; line-height: 1.15; margin: 0; letter-spacing: -0.03em; }
+  .card p.ees-kicker {
+    margin: 0 0 4px; color: var(--accent2); font-size: 0.75rem; font-weight: 700;
+    letter-spacing: 0.04em; text-transform: uppercase;
+  }
+  .card p.ees-wave { color: var(--text); font-weight: 700; margin: 6px 0 0; font-size: 0.95rem; }
+  #wo-title.ees-count { font-size: 1.45rem; letter-spacing: -0.03em; }
+  .block-btn { width: 100%; margin-top: 12px; }
+  #ees-status { margin-top: 8px; }
+  #ees-status:empty { display: none; }
+  .opt-tag {
+    display: inline-block; margin-left: 6px; font-size: 0.68rem; font-weight: 700;
+    letter-spacing: 0.03em; text-transform: uppercase; color: var(--warn);
+    border: 1px solid var(--warn); border-radius: 999px; padding: 1px 6px; vertical-align: 2px;
+  }
+  .set-hint { margin: -2px 0 8px 44px; color: var(--muted); font-size: 0.75rem; }
+  .ex.optional { border-style: dashed; }
+  .set-row.optional .set-n { background: transparent; border: 1px dashed var(--border); }
 </style>
 </head>
 <body>
@@ -216,24 +234,75 @@
         <h1>Gym Tracker</h1>
         <p class="sub" id="home-date"></p>
       </div>
-      <span class="badge" id="week-badge">30 min lifts</span>
+      <span class="badge" id="week-badge">40 workouts</span>
     </div>
 
-    <div class="card">
-      <h2>Pick today’s day</h2>
-      <p>Suggested rhythm: A → B → rest/easy run → C → D → weekend off</p>
-      <div class="day-grid" id="day-grid"></div>
+    <div id="home-ees">
+      <div class="card" id="ees-hero">
+        <p class="ees-kicker" id="ees-kicker">Even Easier Strength</p>
+        <h2 class="ees-count" id="ees-count">Workout 1 of 40</h2>
+        <p class="ees-wave" id="ees-wave">Wave day 1 of 10 · 2×5</p>
+        <p id="ees-block">Workouts 1–8: incline press · chest-supported row · light DB RDL · goblet squat</p>
+        <span class="badge" id="ees-status"></span>
+        <button type="button" class="primary block-btn" id="btn-start-ees">Start workout 1</button>
+      </div>
+      <div class="card hidden" id="ees-reassess">
+        <h2>40 workouts done</h2>
+        <p>Reassess. Run another 40 with these close variations, or move to the legacy A–D hypertrophy block.</p>
+        <div class="row-btns">
+          <button type="button" class="primary" id="btn-ees-again">Start another 40</button>
+          <button type="button" class="ghost" id="btn-ees-hypertrophy">Switch to A–D</button>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Warm-up</h2>
+        <ul class="tips">
+          <li>A few easy goblet squats</li>
+          <li>A light hinge</li>
+          <li>A little shoulder warm-up</li>
+        </ul>
+        <p class="note">Dan’s advanced warm-up is 75 swings and get-ups. This one is shortened so the workout still fits in about 30 minutes.</p>
+      </div>
+      <div class="card">
+        <h2>Rules</h2>
+        <ul class="tips">
+          <li>2×5 should feel like a 2nd or 3rd warmup set</li>
+          <li>Never miss a rep</li>
+          <li>Never grind</li>
+          <li>If yesterday felt hard, go lighter</li>
+          <li>Add weight only when it feels light</li>
+          <li>Use rest time for easy mobility</li>
+          <li>Fat loss comes from diet</li>
+          <li>After workout 40: reassess, then run another 40 with new close variations or move to a hypertrophy block</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h2>Suggested schedule</h2>
+        <p>Four days, not quite back-to-back: Mon / Tue / Thu / Fri, about 4:30–5:00 a.m.</p>
+        <p>The app does not lock to those days. Finish a workout and the next number is ready whenever you are.</p>
+      </div>
+      <div class="card">
+        <h2>Source</h2>
+        <p>Adapted from Dan John, <a class="link" href="https://danjohnuniversity.com/essays/even-easier-strength" target="_blank" rel="noopener noreferrer">Even Easier Strength</a>. Machines instead of barbells, a dedicated row kept, warm-up shortened, 4 days a week instead of 5.</p>
+      </div>
     </div>
 
-    <div class="card">
-      <h2>Before you start</h2>
-      <ul class="tips">
-        <li><strong>Warmup:</strong> 5 min walk/row + 1 light set of the first lift</li>
-        <li><strong>Load:</strong> start ~50–60% of old weights</li>
-        <li><strong>Effort:</strong> leave 2–3 reps in the tank</li>
-        <li><strong>Rest:</strong> ~60–75 sec between sets</li>
-        <li>Optional cardio after lifts — keep lifts ≤ 30 min</li>
-      </ul>
+    <div id="home-legacy" class="hidden">
+      <div class="card">
+        <h2>Pick today’s day</h2>
+        <p>Suggested rhythm: A → B → rest/easy run → C → D → weekend off</p>
+        <div class="day-grid" id="day-grid"></div>
+      </div>
+      <div class="card">
+        <h2>Before you start</h2>
+        <ul class="tips">
+          <li><strong>Warmup:</strong> 5 min walk/row + 1 light set of the first lift</li>
+          <li><strong>Load:</strong> start ~50–60% of old weights</li>
+          <li><strong>Effort:</strong> leave 2–3 reps in the tank</li>
+          <li><strong>Rest:</strong> ~60–75 sec between sets</li>
+          <li>Optional cardio after lifts — keep lifts ≤ 30 min</li>
+        </ul>
+      </div>
     </div>
 
     <div class="card">
@@ -256,6 +325,7 @@
       <button type="button" class="primary" id="btn-finish" style="min-height:40px;padding:8px 14px;">Finish</button>
     </div>
     <div class="progress-bar"><span id="wo-progress"></span></div>
+    <p class="note hidden" id="wo-note"></p>
     <div id="wo-exercises"></div>
     <p class="note">Setup cues sit under each exercise. Tap a thumbnail for a larger form clip. Tap ✓ on a set → optional rest timer. Data saves automatically.</p>
   </section>
@@ -304,12 +374,21 @@
       </div>
     </div>
     <div class="card">
+      <h2>Program</h2>
+      <p>Even Easier Strength is the default. The old A–D split stays available. Switching does not delete logs.</p>
+      <div class="seg" id="program-seg">
+        <button type="button" data-program="ees">Even Easier Strength</button>
+        <button type="button" data-program="legacy">Legacy A–D</button>
+      </div>
+    </div>
+    <div class="card">
       <h2>Weekly rhythm</h2>
-      <ul class="tips">
-        <li>Day A Press → Day B Pull → rest or easy 2-mile</li>
-        <li>Day C Upper Isolation → Day D Light Legs</li>
-        <li>Weekend off (or light walk)</li>
-        <li>If short on time: drop the last exercise first</li>
+      <ul class="tips" id="rhythm-list">
+        <li>40 workouts, 4 days a week, about 10 weeks</li>
+        <li>Suggested Mon / Tue / Thu / Fri, 4:30–5:00 a.m.</li>
+        <li>Same slots every day. Variations swap every 8 workouts</li>
+        <li>The next number unlocks when you finish. It does not lock to a weekday</li>
+        <li>If short on time: skip the optional finisher first</li>
       </ul>
     </div>
     <div class="card">
@@ -448,7 +527,10 @@
     d3: { src: "./media/d3.gif", note: "Leg press — feet lower on the sled than this drawing, to bias quads" },
     d4: { src: "./media/d4.gif", note: "" },
     d5: { src: "./media/d5.gif", note: "" },
-    d6: { src: "./media/d6.gif", note: "Hip adduction. Abduction is the same machine, pressing outward." }
+    d6: { src: "./media/d6.gif", note: "Hip adduction. Abduction is the same machine, pressing outward." },
+    "ees-goblet": { src: "./media/ees-goblet.gif", note: "Stand-in: Everkinetic plie squat. There is no goblet drawing. Hold one dumbbell at your chest, not hanging between your knees." },
+    "ees-hinge-dl": { src: "./media/ees-hinge-dl.gif", note: "Dumbbell deadlift. Keep it light — more knee bend than the Romanian. A cable pull-through is the same idea." },
+    "ees-carry": { src: "./media/ees-carry.gif", note: "Stand-in: Everkinetic has no farmer carry. This is the hold — weights at your sides. Walk an easy distance. Don’t lunge." }
   };
 
   const BAG_ITEMS = [
@@ -478,7 +560,7 @@
       return {
         sessions: data.sessions || {},
         lastWeights: data.lastWeights || {},
-        meta: data.meta || {}
+        meta: data.meta && typeof data.meta === "object" ? data.meta : {}
       };
     } catch (e) {
       return { sessions: {}, lastWeights: {}, meta: {} };
@@ -488,6 +570,134 @@
   function saveStore(store) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(store));
   }
+
+  const EES_TOTAL = 40;
+
+  // 10-workout wave, repeated 4 times. Independent of the 8-workout variation blocks.
+  const WAVE = {
+    1: { id: "2x5", label: "2×5", note: "Should feel like a 2nd or 3rd warmup set.", sets: [{ reps: 5 }, { reps: 5 }] },
+    2: { id: "2x5", label: "2×5", note: "Same easy 2×5. Add weight only if the last one felt light.", sets: [{ reps: 5 }, { reps: 5 }] },
+    3: { id: "532", label: "5-3-2", note: "5 at your usual 2×5 weight. Add weight for 3, add again for a solid double. Don’t miss.", sets: [
+      { reps: 5, hint: "usual 2×5 weight" },
+      { reps: 3, hint: "add weight" },
+      { reps: 2, hint: "solid double · don’t miss" }
+    ] },
+    4: { id: "2x5", label: "2×5", note: "Back to easy 2×5.", sets: [{ reps: 5 }, { reps: 5 }] },
+    5: { id: "2x5", label: "2×5", note: "Easy 2×5.", sets: [{ reps: 5 }, { reps: 5 }] },
+    6: { id: "2x5", label: "2×5", note: "Easy 2×5.", sets: [{ reps: 5 }, { reps: 5 }] },
+    7: { id: "singles", label: "6 singles", note: "Add a little weight each single. The last one is not a max.", sets: [
+      { reps: 1, hint: "start" },
+      { reps: 1, hint: "add a little" },
+      { reps: 1, hint: "add a little" },
+      { reps: 1, hint: "add a little" },
+      { reps: 1, hint: "add a little" },
+      { reps: 1, hint: "not a max" }
+    ] },
+    8: { id: "tonic", label: "1×10 tonic", note: "Very light tonic day — about 40% or less. Move well.", sets: [
+      { reps: 10, hint: "~40% or less" }
+    ] },
+    9: { id: "2x5", label: "2×5", note: "Easy 2×5.", sets: [{ reps: 5 }, { reps: 5 }] },
+    10: { id: "532", label: "5-3-2", note: "5-3-2 again. Slightly harder is fine if you feel good. Still don’t miss.", sets: [
+      { reps: 5, hint: "usual 2×5 weight" },
+      { reps: 3, hint: "add weight" },
+      { reps: 2, hint: "solid double · don’t miss" }
+    ] }
+  };
+
+  const EES_PRESS_INCLINE = {
+    id: "ees-press-incline",
+    name: "Incline Machine Chest Press",
+    cue: "Shoulder blades set. Smooth press. Stop before it grinds.",
+    demoKey: "a1"
+  };
+  const EES_PRESS_SHOULDER = {
+    id: "ees-press-shoulder",
+    name: "Seated Machine Shoulder Press",
+    cue: "Back on the pad. No shrug, no bounce. Easy — leave speed in the machine.",
+    demoKey: "a2"
+  };
+  const EES_PULL_ROW = {
+    id: "ees-pull-row",
+    name: "Chest-Supported Row",
+    cue: "Chest stays on the pad. Pull elbows toward your hips. Don’t twist or heave.",
+    demoKey: "b1"
+  };
+  const EES_PULL_DOWN = {
+    id: "ees-pull-pulldown",
+    name: "Underhand Lat Pulldown",
+    cue: "Elbows close, pull to the upper chest. Don’t swing.",
+    demoKey: "b2"
+  };
+  const EES_HINGE_RDL = {
+    id: "ees-hinge-rdl",
+    name: "Light Dumbbell Romanian Deadlift",
+    cue: "Weights close to the legs. Soft knees, hinge to a hamstring stretch. Keep it light.",
+    demoKey: "d1"
+  };
+  const EES_HINGE_DL = {
+    id: "ees-hinge-dl",
+    name: "Light Dumbbell Deadlift",
+    cue: "A close hinge: a bit more knee bend than the RDL, still light. Cable pull-through is fine if you prefer it.",
+    demoKey: "ees-hinge-dl"
+  };
+  const EES_SQUAT_GOBLET = {
+    id: "ees-squat-goblet",
+    name: "Goblet Squat",
+    cue: "One dumbbell at your chest — not hanging between your knees. Elbows inside the knees. Easy depth you own.",
+    demoKey: "ees-goblet"
+  };
+  const EES_SQUAT_PRESS = {
+    id: "ees-squat-legpress",
+    name: "Light Leg Press",
+    cue: "Light load. Don’t lock out or bounce the sled. Feet where the knees feel happy.",
+    demoKey: "d3",
+    demoNote: "Leg press. Keep this light — don’t lock out or bounce."
+  };
+  const EES_CARRY = {
+    id: "ees-carry",
+    name: "Farmer Carry",
+    cue: "Weights at your sides, tall chest, short steps. Stop while it still feels easy.",
+    demoKey: "ees-carry",
+    kind: "carry",
+    targetLabel: "Easy distance · not waved",
+    setPlan: [{ reps: "", hint: "per hand, then distance" }]
+  };
+  const EES_ABS = {
+    id: "ees-abs",
+    name: "Ab Crunch Machine",
+    cue: "Ribs toward pelvis. Don’t yank the neck. The second set is only if it still feels easy.",
+    demoKey: "c6",
+    demoNote: "Decline crunch — closest drawing to the ab crunch machine.",
+    targetLabel: "1×5 · optional 2×5",
+    setPlan: [{ reps: 5 }, { reps: 5, hint: "optional", optional: true }]
+  };
+  const EES_CURL = {
+    id: "ees-curl",
+    name: "Single-Arm Dumbbell Preacher Curl",
+    cue: "Palm up, arm braced on a 45–60° pad. Easy. Skip if the 30 minutes is up.",
+    demoKey: "b9",
+    optional: true,
+    repsPlaceholder: "8–10",
+    targetLabel: "2×8–10 · easy",
+    setPlan: [{ reps: "" }, { reps: "" }]
+  };
+  const EES_TRI = {
+    id: "ees-tri",
+    name: "Single-Arm Cable Overhead Tricep Extension",
+    cue: "Hand behind the head, arm by the ear. Easy. Don’t flare the elbow. Skip if time is up.",
+    demoKey: "c7",
+    optional: true,
+    repsPlaceholder: "8–10",
+    targetLabel: "2×8–10 · easy",
+    setPlan: [{ reps: "" }, { reps: "" }]
+  };
+
+  const EES_SLOTS = [
+    { short: "incline press", shortAlt: "shoulder press", primary: EES_PRESS_INCLINE, alternate: EES_PRESS_SHOULDER },
+    { short: "chest-supported row", shortAlt: "underhand pulldown", primary: EES_PULL_ROW, alternate: EES_PULL_DOWN },
+    { short: "light DB RDL", shortAlt: "light DB deadlift", primary: EES_HINGE_RDL, alternate: EES_HINGE_DL },
+    { short: "goblet squat", shortAlt: "light leg press", primary: EES_SQUAT_GOBLET, alternate: EES_SQUAT_PRESS }
+  ];
 
   let store = loadStore();
   let currentDay = null;
@@ -501,14 +711,206 @@
     el.textContent = msg;
     el.classList.add("show");
     clearTimeout(toast._t);
-    toast._t = setTimeout(function () { el.classList.remove("show"); }, 1800);
+    toast._t = setTimeout(function () { el.classList.remove("show"); }, 2200);
   }
 
   function sessionKey(date, dayId) {
     return date + "::" + dayId;
   }
 
+  function currentProgram() {
+    return store.meta && store.meta.program === "legacy" ? "legacy" : "ees";
+  }
+
+  function eesCycle() {
+    const c = store.meta && store.meta.ees && store.meta.ees.cycle;
+    return c >= 1 ? c : 1;
+  }
+
+  function eesKey(cycle, n) {
+    return "ees:c" + cycle + ":w" + String(n).padStart(2, "0");
+  }
+
+  function waveDay(n) {
+    return ((n - 1) % 10) + 1;
+  }
+
+  function wavePass(n) {
+    return Math.floor((n - 1) / 10) + 1;
+  }
+
+  function useAlternate(n) {
+    return Math.floor((n - 1) / 8) % 2 === 1;
+  }
+
+  function blockInfo(n) {
+    const b = Math.floor((n - 1) / 8);
+    const start = b * 8 + 1;
+    const end = Math.min(EES_TOTAL, start + 7);
+    const alt = b % 2 === 1;
+    const names = EES_SLOTS.map(function (slot) {
+      return alt ? slot.shortAlt : slot.short;
+    });
+    return "Workouts " + start + "–" + end + ": " + names.join(" · ");
+  }
+
+  function schemeTarget(scheme) {
+    if (scheme.id === "tonic") return "1×10 · very light";
+    if (scheme.id === "singles") return "6 singles";
+    if (scheme.id === "532") return "5-3-2";
+    return "2×5";
+  }
+
+  function copySteps(steps) {
+    return steps.map(function (step) {
+      return {
+        reps: step.reps,
+        hint: step.hint || "",
+        optional: !!step.optional
+      };
+    });
+  }
+
+  function liftEx(base, scheme) {
+    return {
+      id: base.id,
+      name: base.name,
+      cue: base.cue,
+      demoKey: base.demoKey,
+      demoNote: base.demoNote || "",
+      kind: "lift",
+      optional: false,
+      scheme: scheme.id,
+      targetLabel: schemeTarget(scheme),
+      repsPlaceholder: "",
+      setPlan: copySteps(scheme.sets)
+    };
+  }
+
+  function fixedEx(base) {
+    return {
+      id: base.id,
+      name: base.name,
+      cue: base.cue,
+      demoKey: base.demoKey,
+      demoNote: base.demoNote || "",
+      kind: base.kind || "lift",
+      optional: !!base.optional,
+      scheme: "fixed",
+      targetLabel: base.targetLabel,
+      repsPlaceholder: base.repsPlaceholder || "",
+      setPlan: copySteps(base.setPlan)
+    };
+  }
+
+  function buildEesDay(n) {
+    const scheme = WAVE[waveDay(n)];
+    const alt = useAlternate(n);
+    const exercises = EES_SLOTS.map(function (slot) {
+      return liftEx(alt ? slot.alternate : slot.primary, scheme);
+    });
+    exercises.push(fixedEx(EES_CARRY));
+    exercises.push(fixedEx(EES_ABS));
+    exercises.push(fixedEx(EES_CURL));
+    exercises.push(fixedEx(EES_TRI));
+    return {
+      id: "EES",
+      name: "Workout " + n,
+      workoutNumber: n,
+      waveDay: waveDay(n),
+      scheme: scheme,
+      exercises: exercises
+    };
+  }
+
+  function eesSessionsNewestFirst() {
+    const list = [];
+    Object.keys(store.sessions).forEach(function (k) {
+      const s = store.sessions[k];
+      if (s && s.program === "ees") list.push(s);
+    });
+    list.sort(function (a, b) {
+      const ta = a.startedAt || a.finishedAt || a.date || "";
+      const tb = b.startedAt || b.finishedAt || b.date || "";
+      if (ta !== tb) return ta < tb ? 1 : -1;
+      return (b.workoutNumber || 0) - (a.workoutNumber || 0);
+    });
+    return list;
+  }
+
+  function doneWeight(set) {
+    if (!set || !set.done) return "";
+    if (set.weight === "" || set.weight == null) return "";
+    if (isNaN(parseFloat(set.weight))) return "";
+    return String(set.weight);
+  }
+
+  function findEesWeight(exId, scheme, setIndex) {
+    const list = eesSessionsNewestFirst();
+    for (let i = 0; i < list.length; i++) {
+      const block = list[i].exercises && list[i].exercises[exId];
+      if (!block || !Array.isArray(block.sets)) continue;
+      if (scheme && block.scheme && block.scheme !== scheme) continue;
+      if (setIndex == null) {
+        for (let j = block.sets.length - 1; j >= 0; j--) {
+          const w = doneWeight(block.sets[j]);
+          if (w !== "") return w;
+        }
+        continue;
+      }
+      const direct = block.sets[setIndex] && doneWeight(block.sets[setIndex]);
+      if (direct) return direct;
+      if (scheme === "2x5") {
+        for (let j = 0; j < block.sets.length; j++) {
+          const w = doneWeight(block.sets[j]);
+          if (w !== "") return w;
+        }
+      }
+    }
+    return "";
+  }
+
+  function prefillEesWeight(ex, index) {
+    const scheme = ex.scheme || "fixed";
+    if (scheme === "2x5") return findEesWeight(ex.id, "2x5", 0);
+    if (scheme === "532") {
+      if (index === 0) return findEesWeight(ex.id, "2x5", 0) || findEesWeight(ex.id, "532", 0);
+      return findEesWeight(ex.id, "532", index);
+    }
+    if (scheme === "singles") return findEesWeight(ex.id, "singles", index);
+    if (scheme === "tonic") return findEesWeight(ex.id, "tonic", 0);
+    return findEesWeight(ex.id, "fixed", null);
+  }
+
+  function lastCarryDistance(exId) {
+    const list = eesSessionsNewestFirst();
+    for (let i = 0; i < list.length; i++) {
+      const block = list[i].exercises && list[i].exercises[exId];
+      if (!block || !Array.isArray(block.sets)) continue;
+      for (let j = block.sets.length - 1; j >= 0; j--) {
+        const set = block.sets[j];
+        if (set && set.done && set.reps) return String(set.reps);
+      }
+    }
+    return "";
+  }
+
   function blankSets(ex) {
+    if (ex.setPlan) {
+      return ex.setPlan.map(function (step, i) {
+        const reps = ex.kind === "carry"
+          ? lastCarryDistance(ex.id)
+          : (step.reps == null || step.reps === "" ? "" : String(step.reps));
+        return {
+          weight: prefillEesWeight(ex, i),
+          reps: reps,
+          done: false,
+          optional: !!step.optional,
+          hint: step.hint || "",
+          targetReps: step.reps == null ? "" : step.reps
+        };
+      });
+    }
     const sets = [];
     for (let i = 0; i < ex.sets; i++) {
       const lw = store.lastWeights[ex.id];
@@ -536,7 +938,30 @@
     };
   }
 
-  // Add sets for exercises added after an older session was saved.
+  function emptyEesSession(n, cycle) {
+    const day = buildEesDay(n);
+    const exercises = {};
+    day.exercises.forEach(function (ex) {
+      exercises[ex.id] = {
+        scheme: ex.scheme || "fixed",
+        optional: !!ex.optional,
+        sets: blankSets(ex)
+      };
+    });
+    return {
+      date: todayKey(),
+      dayId: "EES",
+      program: "ees",
+      cycle: cycle,
+      workoutNumber: n,
+      waveDay: waveDay(n),
+      startedAt: new Date().toISOString(),
+      finishedAt: null,
+      exercises: exercises
+    };
+  }
+
+  // Add sets for exercises added after an older A–D session was saved.
   // Logged sets for removed exercises stay in the object so history still counts.
   function backfillSession(session, dayId) {
     const day = DAYS[dayId];
@@ -564,11 +989,39 @@
     return store.sessions[key];
   }
 
+  function eesState() {
+    const cycle = eesCycle();
+    let maxFinished = 0;
+    Object.keys(store.sessions).forEach(function (k) {
+      const s = store.sessions[k];
+      if (!s || s.program !== "ees") return;
+      if ((s.cycle || 1) !== cycle) return;
+      const n = s.workoutNumber;
+      if (!n || n < 1 || n > EES_TOTAL || !s.finishedAt) return;
+      if (n > maxFinished) maxFinished = n;
+    });
+    const next = maxFinished + 1;
+    const existing = store.sessions[eesKey(cycle, next)];
+    return {
+      cycle: cycle,
+      maxFinished: maxFinished,
+      next: next,
+      started: !!(existing && !existing.finishedAt),
+      done: next > EES_TOTAL
+    };
+  }
+
+  function sessionStorageKey(session) {
+    if (session && session.program === "ees") {
+      return eesKey(session.cycle || 1, session.workoutNumber);
+    }
+    return sessionKey(session.date, session.dayId);
+  }
+
   function persistCurrent() {
     if (!currentSession) return;
-    const key = sessionKey(currentSession.date, currentSession.dayId);
+    const key = sessionStorageKey(currentSession);
     store.sessions[key] = currentSession;
-    // update last weights from done sets
     Object.keys(currentSession.exercises).forEach(function (exId) {
       const block = currentSession.exercises[exId];
       const sets = block && Array.isArray(block.sets) ? block.sets : [];
@@ -595,29 +1048,23 @@
     if (name === "history") renderHistory();
     if (name === "bag") renderBag();
     if (name === "home") renderHome();
+    if (name === "more") renderMore();
   }
 
   function suggestedDay() {
-    // Soft suggestion from recent sessions (not calendar-forced)
     const order = ["A", "B", "C", "D"];
     const keys = Object.keys(store.sessions).sort().reverse();
     for (let i = 0; i < keys.length; i++) {
       const s = store.sessions[keys[i]];
-      if (s && s.finishedAt) {
+      if (s && s.finishedAt && s.program !== "ees" && s.dayId !== "EES") {
         const idx = order.indexOf(s.dayId);
         if (idx >= 0) return order[(idx + 1) % order.length];
       }
     }
-    // also check today's unfinished
     return "A";
   }
 
-  function renderHome() {
-    const dateEl = document.getElementById("home-date");
-    const d = new Date();
-    dateEl.textContent = d.toLocaleDateString(undefined, {
-      weekday: "long", month: "short", day: "numeric"
-    });
+  function renderLegacyHome() {
     const sug = suggestedDay();
     const grid = document.getElementById("day-grid");
     grid.innerHTML = "";
@@ -646,26 +1093,124 @@
     });
   }
 
+  function renderEesHome() {
+    const st = eesState();
+    const kicker = document.getElementById("ees-kicker");
+    kicker.textContent = st.cycle > 1 ? "Even Easier Strength · Cycle " + st.cycle : "Even Easier Strength";
+    const shown = st.done ? EES_TOTAL : st.next;
+    document.getElementById("ees-count").textContent = "Workout " + shown + " of 40";
+    const waveEl = document.getElementById("ees-wave");
+    const blockEl = document.getElementById("ees-block");
+    const status = document.getElementById("ees-status");
+    const startBtn = document.getElementById("btn-start-ees");
+    if (st.done) {
+      waveEl.textContent = "Cycle " + st.cycle + " complete";
+      blockEl.textContent = "Reassess, then run another 40 or switch to the hypertrophy block.";
+      status.textContent = "";
+      startBtn.classList.add("hidden");
+    } else {
+      const scheme = WAVE[waveDay(st.next)];
+      waveEl.textContent = "Wave day " + waveDay(st.next) + " of 10 · " + scheme.label + " · pass " + wavePass(st.next) + " of 4";
+      blockEl.textContent = blockInfo(st.next);
+      status.textContent = st.started ? "In progress" : "";
+      startBtn.classList.remove("hidden");
+      startBtn.textContent = (st.started ? "Continue" : "Start") + " workout " + st.next;
+    }
+    document.getElementById("ees-reassess").classList.toggle("hidden", !st.done);
+    const hero = document.getElementById("ees-hero");
+    hero.setAttribute("data-workout", String(shown));
+    hero.setAttribute("data-wave", st.done ? "" : String(waveDay(st.next)));
+    hero.setAttribute("data-done", st.done ? "1" : "0");
+  }
+
+  function renderHome() {
+    const dateEl = document.getElementById("home-date");
+    const d = new Date();
+    dateEl.textContent = d.toLocaleDateString(undefined, {
+      weekday: "long", month: "short", day: "numeric"
+    });
+    const ees = currentProgram() === "ees";
+    document.getElementById("home-ees").classList.toggle("hidden", !ees);
+    document.getElementById("home-legacy").classList.toggle("hidden", ees);
+    document.getElementById("week-badge").textContent = ees ? "40 workouts" : "30 min lifts";
+    if (ees) renderEesHome();
+    else renderLegacyHome();
+  }
+
+  function setWorkoutChrome(title, sub, note, ees) {
+    const titleEl = document.getElementById("wo-title");
+    titleEl.textContent = title;
+    titleEl.classList.toggle("ees-count", !!ees);
+    document.getElementById("wo-sub").textContent = sub;
+    const noteEl = document.getElementById("wo-note");
+    noteEl.textContent = note || "";
+    noteEl.classList.toggle("hidden", !note);
+  }
+
   function openWorkout(dayId) {
     currentDay = DAYS[dayId];
     currentSession = getOrCreateSession(dayId);
-    document.getElementById("wo-title").textContent = "Day " + dayId + " · " + currentDay.name;
-    document.getElementById("wo-sub").textContent = currentDay.short + " · rest 60–75s · ≤30 min";
+    setWorkoutChrome(
+      "Day " + dayId + " · " + currentDay.name,
+      currentDay.short + " · rest 60–75s · ≤30 min",
+      "",
+      false
+    );
+    const view = document.getElementById("view-workout");
+    view.removeAttribute("data-workout");
+    view.removeAttribute("data-wave");
+    view.removeAttribute("data-scheme");
+    renderWorkout();
+    showView("workout");
+  }
+
+  function openEes() {
+    const st = eesState();
+    if (st.done) return;
+    const n = st.next;
+    const key = eesKey(st.cycle, n);
+    if (!store.sessions[key]) {
+      store.sessions[key] = emptyEesSession(n, st.cycle);
+      saveStore(store);
+    }
+    currentSession = store.sessions[key];
+    currentDay = buildEesDay(n);
+    const scheme = WAVE[waveDay(n)];
+    let sub = "Wave day " + waveDay(n) + " of 10 · " + scheme.label + " · pass " + wavePass(n) + " of 4";
+    if ((currentSession.cycle || 1) > 1) sub = "Cycle " + currentSession.cycle + " · " + sub;
+    setWorkoutChrome("Workout " + n + " of 40", sub, scheme.note, true);
+    const view = document.getElementById("view-workout");
+    view.setAttribute("data-workout", String(n));
+    view.setAttribute("data-wave", String(waveDay(n)));
+    view.setAttribute("data-scheme", scheme.id);
     renderWorkout();
     showView("workout");
   }
 
   function countProgress() {
     let total = 0, done = 0;
+    if (!currentDay || !currentSession) return { total: 0, done: 0 };
     currentDay.exercises.forEach(function (ex) {
       const block = currentSession.exercises[ex.id];
       const sets = block && Array.isArray(block.sets) ? block.sets : [];
       sets.forEach(function (s) {
+        if (!s || ex.optional || s.optional) return;
         total++;
         if (s.done) done++;
       });
     });
     return { total: total, done: done };
+  }
+
+  function lastLabel(ex) {
+    if (!ex.setPlan) {
+      const lw = store.lastWeights[ex.id];
+      return lw != null ? "Last " + lw : "—";
+    }
+    const w = prefillEesWeight(ex, 0);
+    if (!w) return "—";
+    if (ex.scheme === "532") return "2×5 " + w;
+    return "Last " + w;
   }
 
   function renderWorkout() {
@@ -675,17 +1220,32 @@
     document.getElementById("wo-progress").style.width =
       (prog.total ? Math.round((prog.done / prog.total) * 100) : 0) + "%";
 
+    if (currentSession && currentSession.program === "ees") {
+      const warm = document.createElement("div");
+      warm.className = "card";
+      warm.innerHTML = "<h2>Warm-up</h2><p>A few easy goblet squats, a light hinge, and a little shoulder work. Dan’s 75 swings and get-ups are shortened so this still fits in about 30 minutes.</p>";
+      root.appendChild(warm);
+    }
+
+    let optionalShown = false;
     currentDay.exercises.forEach(function (ex, exIdx) {
+      if (ex.optional && !optionalShown) {
+        optionalShown = true;
+        const banner = document.createElement("div");
+        banner.className = "card";
+        banner.innerHTML = "<h2>Optional finisher</h2><p>Only if you’re still inside 30 minutes. Easy sets. Skip them with a clear conscience.</p>";
+        root.appendChild(banner);
+      }
+
       const block = document.createElement("div");
       const exData = currentSession.exercises[ex.id];
       if (!exData || !Array.isArray(exData.sets)) return;
       const allDone = exData.sets.length > 0 && exData.sets.every(function (s) { return s.done; });
-      block.className = "ex" + (allDone ? " complete" : "");
+      block.className = "ex" + (allDone ? " complete" : "") + (ex.optional ? " optional" : "");
 
-      const lw = store.lastWeights[ex.id];
       const head = document.createElement("div");
       head.className = "ex-head";
-      const demo = DEMOS[ex.id];
+      const demo = (ex.demoKey && DEMOS[ex.demoKey]) || DEMOS[ex.id];
       if (demo) {
         const thumb = document.createElement("button");
         thumb.type = "button";
@@ -703,24 +1263,33 @@
       }
       const copy = document.createElement("div");
       copy.className = "ex-copy";
+      const opt = ex.optional ? ' <span class="opt-tag">Optional</span>' : "";
+      const target = ex.targetLabel || (ex.sets + " × " + ex.reps);
       copy.innerHTML =
-        "<p class=\"ex-name\">" + (exIdx + 1) + ". " + escapeHtml(ex.name) + "</p>" +
-        "<p class=\"ex-target\">" + ex.sets + " × " + escapeHtml(ex.reps) + "</p>" +
-        (ex.cue ? "<p class=\"ex-cue\">" + escapeHtml(ex.cue) + "</p>" : "");
+        '<p class="ex-name">' + (exIdx + 1) + ". " + escapeHtml(ex.name) + opt + "</p>" +
+        '<p class="ex-target">' + escapeHtml(target) + "</p>" +
+        (ex.cue ? '<p class="ex-cue">' + escapeHtml(ex.cue) + "</p>" : "");
       head.appendChild(copy);
       const last = document.createElement("p");
       last.className = "last";
-      last.textContent = lw != null ? "Last " + lw : "—";
+      last.textContent = lastLabel(ex);
       head.appendChild(last);
       block.appendChild(head);
 
       exData.sets.forEach(function (set, si) {
         const row = document.createElement("div");
-        row.className = "set-row" + (set.done ? " done" : "");
+        row.className = "set-row" + (set.done ? " done" : "") + (set.optional ? " optional" : "");
+        const carry = ex.kind === "carry";
+        const repsPh = carry ? "yds" : (set.targetReps !== "" && set.targetReps != null ? String(set.targetReps) : (ex.repsPlaceholder || "reps"));
+        const weightPh = carry ? "per hand" : "lbs";
+        const weightLabel = carry ? "Load per hand" : "Weight set " + (si + 1);
+        const repsLabel = carry ? "Distance" : "Reps set " + (si + 1);
+        const repsType = carry ? "text" : "number";
+        const repsMode = carry ? "text" : "numeric";
         row.innerHTML =
           '<div class="set-n">' + (si + 1) + "</div>" +
-          '<input type="number" inputmode="decimal" placeholder="lbs" aria-label="Weight set ' + (si + 1) + '" data-ex="' + ex.id + '" data-si="' + si + '" data-field="weight" value="' + escapeAttr(set.weight) + '" />' +
-          '<input type="number" inputmode="numeric" placeholder="reps" aria-label="Reps set ' + (si + 1) + '" data-ex="' + ex.id + '" data-si="' + si + '" data-field="reps" value="' + escapeAttr(set.reps) + '" />';
+          '<input type="number" inputmode="decimal" placeholder="' + weightPh + '" aria-label="' + weightLabel + '" data-ex="' + ex.id + '" data-si="' + si + '" data-field="weight" value="' + escapeAttr(set.weight) + '" />' +
+          '<input type="' + repsType + '" inputmode="' + repsMode + '" placeholder="' + escapeAttr(repsPh) + '" aria-label="' + repsLabel + '" data-ex="' + ex.id + '" data-si="' + si + '" data-field="reps" value="' + escapeAttr(set.reps) + '" />';
         const doneBtn = document.createElement("button");
         doneBtn.type = "button";
         doneBtn.className = "done-btn";
@@ -728,18 +1297,15 @@
         doneBtn.addEventListener("click", function () {
           const s = currentSession.exercises[ex.id].sets[si];
           s.done = !s.done;
-          // if marking done and reps empty, nudge focus — leave as is
           persistCurrent();
           renderWorkout();
           if (s.done) offerRestTimer();
         });
         row.appendChild(doneBtn);
-
         row.querySelectorAll("input").forEach(function (inp) {
           inp.addEventListener("change", onSetInput);
           inp.addEventListener("blur", onSetInput);
           inp.addEventListener("input", function (e) {
-            // live save lightly
             const t = e.target;
             const id = t.getAttribute("data-ex");
             const i = parseInt(t.getAttribute("data-si"), 10);
@@ -748,6 +1314,12 @@
           });
         });
         block.appendChild(row);
+        if (set.hint) {
+          const hint = document.createElement("p");
+          hint.className = "set-hint";
+          hint.textContent = set.hint;
+          block.appendChild(hint);
+        }
       });
       root.appendChild(block);
     });
@@ -764,7 +1336,6 @@
   }
 
   function offerRestTimer() {
-    // Auto-offer 75s rest; user can skip
     startTimer(75);
   }
 
@@ -791,8 +1362,9 @@
     const m = Math.floor(Math.max(0, timerLeft) / 60);
     const s = Math.max(0, timerLeft) % 60;
     document.getElementById("timer-time").textContent = m + ":" + String(s).padStart(2, "0");
+    const ees = currentSession && currentSession.program === "ees";
     document.getElementById("timer-label").textContent =
-      timerLeft > 0 ? "Rest · 60–75s window" : "Go";
+      timerLeft > 0 ? (ees ? "Rest · easy mobility" : "Rest · 60–75s window") : "Go";
   }
 
   function stopTimer(hide) {
@@ -814,12 +1386,16 @@
         if (list[j].id === id) return list[j];
       }
     }
+    const catalog = [EES_PRESS_INCLINE, EES_PRESS_SHOULDER, EES_PULL_ROW, EES_PULL_DOWN, EES_HINGE_RDL, EES_HINGE_DL, EES_SQUAT_GOBLET, EES_SQUAT_PRESS, EES_CARRY, EES_ABS, EES_CURL, EES_TRI];
+    for (let i = 0; i < catalog.length; i++) {
+      if (catalog[i].id === id) return catalog[i];
+    }
     return null;
   }
 
   function openDemo(id) {
-    const demo = DEMOS[id];
     const ex = exerciseById(id);
+    const demo = (ex && ex.demoKey && DEMOS[ex.demoKey]) || DEMOS[id];
     if (!demo || !ex) return;
     const img = document.getElementById("demo-img");
     img.alt = "Form demo: " + ex.name;
@@ -830,8 +1406,9 @@
     cue.textContent = ex.cue || "";
     cue.classList.toggle("hidden", !ex.cue);
     const note = document.getElementById("demo-note");
-    note.textContent = demo.note || "";
-    note.classList.toggle("hidden", !demo.note);
+    const noteText = ex.demoNote || demo.note || "";
+    note.textContent = noteText;
+    note.classList.toggle("hidden", !noteText);
     const modal = document.getElementById("demo-modal");
     modal.classList.remove("hidden");
     document.body.classList.add("modal-open");
@@ -860,77 +1437,155 @@
   function finishWorkout() {
     if (!currentSession) return;
     const prog = countProgress();
-    const msg = prog.done + "/" + prog.total + " sets logged. Mark this session finished?";
+    let msg = prog.done + "/" + prog.total + " sets logged. Mark this session finished?";
+    if (currentSession.program === "ees") {
+      const n = currentSession.workoutNumber;
+      if (n >= EES_TOTAL) {
+        msg = "Workout 40 of 40 · " + prog.done + "/" + prog.total + " sets. Mark this cycle finished? You’ll reassess on the home screen.";
+      } else {
+        msg = "Workout " + n + " of 40 · " + prog.done + "/" + prog.total + " sets logged. Mark it finished? Next is workout " + (n + 1) + ".";
+      }
+    }
     if (!confirm(msg)) return;
     currentSession.finishedAt = new Date().toISOString();
     persistCurrent();
     stopTimer(true);
-    toast("Session saved");
+    if (currentSession.program === "ees" && currentSession.workoutNumber >= EES_TOTAL) {
+      toast("Workout 40 saved. Time to reassess.");
+    } else if (currentSession.program === "ees") {
+      toast("Workout " + currentSession.workoutNumber + " saved");
+    } else {
+      toast("Session saved");
+    }
     showView("home");
+  }
+
+  function sessionStamp(s) {
+    return (s && (s.finishedAt || s.startedAt)) || (s && s.date ? s.date + "T00:00:00" : "");
+  }
+
+  function sortedKeys(pred) {
+    return Object.keys(store.sessions).filter(function (k) {
+      const s = store.sessions[k];
+      return s && typeof s === "object" && pred(s);
+    }).sort(function (a, b) {
+      const sa = sessionStamp(store.sessions[a]);
+      const sb = sessionStamp(store.sessions[b]);
+      if (sa === sb) return a < b ? 1 : -1;
+      return sa < sb ? 1 : -1;
+    });
+  }
+
+  function tallySession(s) {
+    let total = 0, done = 0, optDone = 0;
+    const exMap = s.exercises || {};
+    Object.keys(exMap).forEach(function (exId) {
+      const block = exMap[exId];
+      const sets = block && Array.isArray(block.sets) ? block.sets : [];
+      const blockOptional = !!(block && block.optional);
+      sets.forEach(function (set) {
+        if (!set) return;
+        if (blockOptional || set.optional) {
+          if (set.done) optDone++;
+          return;
+        }
+        total++;
+        if (set.done) done++;
+      });
+    });
+    return { total: total, done: done, optDone: optDone };
+  }
+
+  function isEesSession(s) {
+    return !!(s && (s.program === "ees" || s.dayId === "EES"));
   }
 
   function renderHistory() {
     const body = document.getElementById("hist-body");
-    document.querySelectorAll(".seg button").forEach(function (b) {
+    document.querySelectorAll("#view-history .seg button").forEach(function (b) {
       b.classList.toggle("active", b.getAttribute("data-hist") === histMode);
     });
     if (histMode === "weights") {
       let html = "<h2>Last weight used</h2>";
-      const grouped = [];
-      const index = {};
+      const eesCatalog = [EES_PRESS_INCLINE, EES_PRESS_SHOULDER, EES_PULL_ROW, EES_PULL_DOWN, EES_HINGE_RDL, EES_HINGE_DL, EES_SQUAT_GOBLET, EES_SQUAT_PRESS, EES_CARRY, EES_ABS, EES_CURL, EES_TRI];
+      const eesRows = [];
+      eesCatalog.forEach(function (ex) {
+        const w = store.lastWeights[ex.id];
+        if (w != null) eesRows.push({ name: ex.name, w: w });
+      });
+      const legacyRows = [];
+      const seen = {};
       ["A", "B", "C", "D"].forEach(function (dayId) {
         DAYS[dayId].exercises.forEach(function (ex) {
-          if (!index[ex.id]) {
-            index[ex.id] = { id: ex.id, name: ex.name, days: [] };
-            grouped.push(index[ex.id]);
+          if (seen[ex.id]) {
+            if (seen[ex.id].days.indexOf(dayId) < 0) seen[ex.id].days.push(dayId);
+            return;
           }
-          if (index[ex.id].days.indexOf(dayId) < 0) index[ex.id].days.push(dayId);
+          seen[ex.id] = { id: ex.id, name: ex.name, days: [dayId] };
         });
       });
-      const rows = [];
-      grouped.forEach(function (g) {
+      Object.keys(seen).forEach(function (id) {
+        const g = seen[id];
         const w = store.lastWeights[g.id];
-        if (w != null) rows.push({ days: g.days, name: g.name, w: w });
+        if (w != null) legacyRows.push({ days: g.days, name: g.name, w: w });
       });
-      if (!rows.length) {
+      if (!eesRows.length && !legacyRows.length) {
         body.innerHTML = html + '<p class="empty">No weights logged yet. Finish a few sets first.</p>';
         return;
       }
-      html += rows.map(function (r) {
-        const dayLabel = r.days.length > 1 ? "Days " + r.days.join(" & ") : "Day " + r.days[0];
-        return '<div class="hist-item"><div class="when">' + dayLabel + ' · ' + escapeHtml(r.name) +
-          '</div><div class="detail">' + r.w + ' lbs</div></div>';
-      }).join("");
+      if (eesRows.length) {
+        html += "<h2>Even Easier Strength</h2>";
+        html += eesRows.map(function (r) {
+          return '<div class="hist-item"><div class="when">' + escapeHtml(r.name) +
+            '</div><div class="detail">' + r.w + " lbs</div></div>";
+        }).join("");
+      }
+      if (legacyRows.length) {
+        html += "<h2>Legacy A–D</h2>";
+        html += legacyRows.map(function (r) {
+          const dayLabel = r.days.length > 1 ? "Days " + r.days.join(" & ") : "Day " + r.days[0];
+          return '<div class="hist-item"><div class="when">' + dayLabel + " · " + escapeHtml(r.name) +
+            '</div><div class="detail">' + r.w + " lbs</div></div>";
+        }).join("");
+      }
       body.innerHTML = html;
       return;
     }
 
-    // sessions
-    const keys = Object.keys(store.sessions).sort().reverse();
-    let html = "<h2>Recent sessions</h2>";
-    if (!keys.length) {
-      body.innerHTML = html + '<p class="empty">No sessions yet.</p>';
-      return;
+    const eesKeys = sortedKeys(isEesSession).slice(0, 40);
+    const legacyKeys = sortedKeys(function (s) { return !isEesSession(s); }).slice(0, 40);
+    let html = "<h2>Even Easier Strength</h2>";
+    if (!eesKeys.length) {
+      html += '<p class="empty">No Even Easier Strength sessions yet.</p>';
+    } else {
+      html += eesKeys.map(function (k) {
+        const s = store.sessions[k];
+        const tally = tallySession(s);
+        const wave = s.waveDay || (s.workoutNumber ? waveDay(s.workoutNumber) : null);
+        const scheme = wave && WAVE[wave] ? WAVE[wave].label : "";
+        const status = s.finishedAt ? "Finished" : "Partial";
+        const cycleBit = (s.cycle || 1) > 1 ? " · cycle " + s.cycle : "";
+        const optBit = tally.optDone ? " · optional logged" : "";
+        return '<div class="hist-item">' +
+          '<div class="when">' + escapeHtml(s.date || "") + " · Workout " + (s.workoutNumber || "?") + " of 40" + cycleBit + "</div>" +
+          '<div class="detail">' + status + (wave ? " · Wave day " + wave : "") + (scheme ? " · " + escapeHtml(scheme) : "") +
+          " · " + tally.done + "/" + tally.total + " sets" + optBit + "</div></div>";
+      }).join("");
     }
-    html += keys.slice(0, 30).map(function (k) {
-      const s = store.sessions[k];
-      if (!s || typeof s !== "object") return "";
-      const day = DAYS[s.dayId];
-      let done = 0, total = 0;
-      const exMap = s.exercises || {};
-      Object.keys(exMap).forEach(function (exId) {
-        const block = exMap[exId];
-        const sets = block && Array.isArray(block.sets) ? block.sets : [];
-        sets.forEach(function (set) {
-          total++;
-          if (set && set.done) done++;
-        });
-      });
-      const status = s.finishedAt ? "Finished" : "Partial";
-      return '<div class="hist-item">' +
-        '<div class="when">' + escapeHtml(s.date) + ' · Day ' + s.dayId + ' ' + escapeHtml(day ? day.name : "") + '</div>' +
-        '<div class="detail">' + status + ' · ' + done + '/' + total + ' sets</div></div>';
-    }).join("");
+    html += "<h2>Legacy A–D</h2>";
+    if (!legacyKeys.length) {
+      html += '<p class="empty">No A–D sessions on this phone.</p>';
+    } else {
+      html += legacyKeys.map(function (k) {
+        const s = store.sessions[k];
+        const day = DAYS[s.dayId];
+        const tally = tallySession(s);
+        const status = s.finishedAt ? "Finished" : "Partial";
+        return '<div class="hist-item">' +
+          '<div class="when">' + escapeHtml(s.date || "") + " · Day " + escapeHtml(s.dayId || "") + " " + escapeHtml(day ? day.name : "") + "</div>" +
+          '<div class="detail">' + status + " · " + tally.done + "/" + tally.total + " sets</div></div>";
+      }).join("");
+    }
     body.innerHTML = html;
   }
 
@@ -957,7 +1612,7 @@
       const li = document.createElement("li");
       if (checks[i]) li.className = "checked";
       const id = "bag-" + i;
-      li.innerHTML = '<input type="checkbox" id="' + id + '" ' + (checks[i] ? "checked" : "") + ' />' +
+      li.innerHTML = '<input type="checkbox" id="' + id + '" ' + (checks[i] ? "checked" : "") + " />" +
         '<label for="' + id + '">' + escapeHtml(label) + "</label>";
       li.querySelector("input").addEventListener("change", function (e) {
         checks[i] = e.target.checked;
@@ -971,7 +1626,7 @@
   function exportData() {
     const payload = {
       exportedAt: new Date().toISOString(),
-      version: 1,
+      version: 2,
       store: store,
       bag: loadBag()
     };
@@ -986,7 +1641,6 @@
       URL.revokeObjectURL(a.href);
       a.remove();
     }, 500);
-    // also copy if possible
     if (navigator.clipboard && navigator.clipboard.writeText) {
       navigator.clipboard.writeText(text).then(function () {
         toast("Exported + copied to clipboard");
@@ -1006,7 +1660,7 @@
         store = {
           sessions: data.store.sessions || {},
           lastWeights: data.store.lastWeights || {},
-          meta: data.store.meta || {}
+          meta: data.store.meta && typeof data.store.meta === "object" ? data.store.meta : {}
         };
         saveStore(store);
         if (Array.isArray(data.bag)) saveBag(data.bag);
@@ -1020,7 +1674,53 @@
     reader.readAsText(file);
   }
 
-  // Wire nav
+  function syncProgramButtons() {
+    const p = currentProgram();
+    document.querySelectorAll("#program-seg button").forEach(function (b) {
+      b.classList.toggle("active", b.getAttribute("data-program") === p);
+    });
+  }
+
+  function setProgram(program) {
+    if (!store.meta || typeof store.meta !== "object") store.meta = {};
+    store.meta.program = program === "legacy" ? "legacy" : "ees";
+    saveStore(store);
+    syncProgramButtons();
+    renderMore();
+    toast(store.meta.program === "legacy" ? "Legacy A–D" : "Even Easier Strength");
+    showView("home");
+  }
+
+  function startAnotherCycle() {
+    if (!store.meta || typeof store.meta !== "object") store.meta = {};
+    if (!store.meta.ees || typeof store.meta.ees !== "object") store.meta.ees = {};
+    const next = (store.meta.ees.cycle || 1) + 1;
+    store.meta.ees.cycle = next;
+    saveStore(store);
+    toast("Cycle " + next);
+    renderHome();
+  }
+
+  function renderMore() {
+    syncProgramButtons();
+    const list = document.getElementById("rhythm-list");
+    if (!list) return;
+    if (currentProgram() === "legacy") {
+      list.innerHTML =
+        "<li>Day A Press → Day B Pull → rest or easy 2-mile</li>" +
+        "<li>Day C Upper Isolation → Day D Light Legs</li>" +
+        "<li>Weekend off (or light walk)</li>" +
+        "<li>If short on time: drop the last exercise first</li>";
+    } else {
+      list.innerHTML =
+        "<li>40 workouts, 4 days a week, about 10 weeks</li>" +
+        "<li>Suggested Mon / Tue / Thu / Fri, 4:30–5:00 a.m.</li>" +
+        "<li>Same slots every day. Variations swap every 8 workouts</li>" +
+        "<li>The next number unlocks when you finish. It does not lock to a weekday</li>" +
+        "<li>If short on time: skip the optional finisher first</li>";
+    }
+  }
+
   document.querySelectorAll("#main-nav button").forEach(function (b) {
     b.addEventListener("click", function () {
       const v = b.getAttribute("data-nav");
@@ -1038,10 +1738,20 @@
     showView("home");
   });
   document.getElementById("btn-finish").addEventListener("click", finishWorkout);
+  document.getElementById("btn-start-ees").addEventListener("click", openEes);
+  document.getElementById("btn-ees-again").addEventListener("click", startAnotherCycle);
+  document.getElementById("btn-ees-hypertrophy").addEventListener("click", function () {
+    setProgram("legacy");
+  });
+  document.querySelectorAll("#program-seg button").forEach(function (b) {
+    b.addEventListener("click", function () {
+      setProgram(b.getAttribute("data-program"));
+    });
+  });
   document.getElementById("timer-skip").addEventListener("click", function () {
     stopTimer(true);
   });
-  document.querySelectorAll(".seg button").forEach(function (b) {
+  document.querySelectorAll("#view-history .seg button").forEach(function (b) {
     b.addEventListener("click", function () {
       histMode = b.getAttribute("data-hist");
       renderHistory();
@@ -1085,13 +1795,14 @@
   document.getElementById("btn-clear").addEventListener("click", function () {
     if (!confirm("Delete ALL workout sessions and last weights on this phone?")) return;
     if (!confirm("Absolutely sure? This cannot be undone (export first).")) return;
+    const program = store.meta && store.meta.program;
     store = { sessions: {}, lastWeights: {}, meta: {} };
+    if (program === "legacy" || program === "ees") store.meta.program = program;
     saveStore(store);
     toast("Cleared");
     renderHome();
   });
 
-  // Autosave on hide
   document.addEventListener("visibilitychange", function () {
     if (document.visibilityState === "hidden") persistCurrent();
   });
@@ -1105,6 +1816,7 @@
 
   renderHome();
 })();
+
 </script>
 </body>
 </html>

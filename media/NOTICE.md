@@ -16,3 +16,11 @@ Attribute Everkinetic and link the license. The rest of this repository
 (the tracker code) is separate from these drawings.
 
 Source filenames are listed in `scripts/build-demos.py`.
+
+## Even Easier Strength additions
+
+Built the same way (white square, about 2 seconds per pose, poses not redrawn):
+
+- `ees-goblet.gif` — Wikimedia file “Pile squat with dumbbell”. Stand-in for a goblet squat. Everkinetic has no goblet drawing; this one holds the dumbbell between the knees. The app tells you to hold it at your chest.
+- `ees-hinge-dl.gif` — “Dumbbell dead lifts”. Light dumbbell deadlift, the close hinge variation (a bit more knee bend than the Romanian). There is no cable pull-through drawing in the library.
+- `ees-carry.gif` — standing pose only of “Walking lunges”. Stand-in for a farmer carry. Everkinetic has no carry drawing. The app tells you to walk an easy distance and not to lunge. The lunge frame is not included.
