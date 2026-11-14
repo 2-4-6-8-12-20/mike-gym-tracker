@@ -57,6 +57,11 @@ SOURCES = {
     "d4": ["Step ups with dumbbells 1.svg", "Step ups with dumbbells 2.svg", "Step ups with dumbbells 3.svg"],
     "d5": ["Standing calf raises using machine 1.svg", "Standing calf raises using machine 2.svg"],
     "d6": ["Hip adduction 1.svg", "Hip adduction 2.svg"],
+    # Even Easier Strength additions. ees-goblet and ees-carry are stand-ins;
+    # the app labels them. Everkinetic has no goblet squat, farmer carry, or pull-through.
+    "ees-goblet": ["Pile squat with dumbbell 1.svg", "Pile squat with dumbbell 2.svg"],
+    "ees-hinge-dl": ["Dumbbell dead lifts 1.svg", "Dumbbell dead lifts 2.svg"],
+    "ees-carry": ["Walking lunges 1.svg"],
 }
 
 
